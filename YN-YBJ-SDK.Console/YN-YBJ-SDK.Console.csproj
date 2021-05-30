@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FD.Util.Network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FD.Util.Network.1.0.0\lib\net48\FD.Util.Network.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +51,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HN-YBJ-SDK.Core\HN-YBJ-SDK.Core.csproj">
+      <Project>{61e2f958-a16b-4146-9d62-a4b6873dd27b}</Project>
+      <Name>HN-YBJ-SDK.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NY-YBJ-SDK.Model\NY-YBJ-SDK.Model.csproj">
+      <Project>{c9333f77-a993-48f2-a04b-f7f0cb9b28b6}</Project>
+      <Name>NY-YBJ-SDK.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

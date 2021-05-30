@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HN-YBJ-SDK.Core", "HN-YBJ-S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YN-YBJ-SDK.Console", "YN-YBJ-SDK.Console\YN-YBJ-SDK.Console.csproj", "{BEA59BE8-8DD3-4C91-8109-A542C128666C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NY-YBJ-SDK.Model", "NY-YBJ-SDK.Model\NY-YBJ-SDK.Model.csproj", "{C9333F77-A993-48F2-A04B-F7F0CB9B28B6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BEA59BE8-8DD3-4C91-8109-A542C128666C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA59BE8-8DD3-4C91-8109-A542C128666C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA59BE8-8DD3-4C91-8109-A542C128666C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9333F77-A993-48F2-A04B-F7F0CB9B28B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9333F77-A993-48F2-A04B-F7F0CB9B28B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9333F77-A993-48F2-A04B-F7F0CB9B28B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9333F77-A993-48F2-A04B-F7F0CB9B28B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
