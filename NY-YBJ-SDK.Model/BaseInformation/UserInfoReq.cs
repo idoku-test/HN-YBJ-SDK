@@ -9,6 +9,9 @@ namespace NY_YBJ_SDK.Model
 {
     public class UserInfoReq
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string mdtrt_cert_type { get; set; }
 
         public string mdtrt_cert_no { get; set; }
