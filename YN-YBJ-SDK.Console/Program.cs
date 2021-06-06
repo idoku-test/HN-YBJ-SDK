@@ -1,4 +1,5 @@
-﻿using FD.Util.Network;
+﻿using FD.Util.Json;
+using FD.Util.Network;
 using HN_YBJ_SDK.Core;
 using NY_YBJ_SDK.Model;
 using System;
@@ -7,44 +8,78 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace YN_YBJ_SDK.Console
+namespace YN_YBJ_SDK.App
 {
     class Program
     {
         static void Main(string[] args)
         {
-            BaseReq req = new BaseReq();
+			Console.WriteLine(".....请求测试......");
+			try
+			{
 
-            req.infon = "1001";
-            //msgid 
-            var ori_code = "000000000001";
-            req.msgid = string.Format("{0}{1}{2}", ori_code, DateTime.Now.ToString("yyyyMMddHHmmss"),1234);
-            req.mdtrtarea_admvs = "10000";
-            req.insuplc_admdvs = "10000";
-            req.recer_sys_code = "MBS_LOCAL";           
-            req.dev_no = "";
-            req.dev_safe_info = "";
-            //
-            req.cainfo = "";
-            req.signtype = "";
-            req.infver = "";
-            req.opter_type = "1";
-            req.opter = "01";
-            req.opter_name = "张三";
-            req.inf_time = DateTime.Now;
 
-            //infno->sign_no
-            SignService signService = new SignService();
-            var signReq = new SignInReq()
-            {
-                ip = IPHelper.GetLocalIPAddress(),
-                mac = MacHelper.GetMacAddress(),
-                opter_no = "doku"
-            };
-            var infno = signService.SignIn(signReq);
+				BaseReq req = new BaseReq();
 
-            req.sign_no = infno.sign_no;                       
-        }
+				req.infon = "1001";
+				//msgid 
+				var ori_code = "000000000001";
+				req.msgid = string.Format("{0}{1}{2}", ori_code, DateTime.Now.ToString("yyyyMMddHHmmss"), new Random().Next(1000, 9999));
+				req.mdtrtarea_admvs = "10000";
+				req.insuplc_admdvs = "10000";
+				req.recer_sys_code = "MBS_LOCAL";
+				req.dev_no = "";
+				req.dev_safe_info = "";
+				//
+				req.cainfo = "";
+				req.signtype = "";
+				req.infver = "";
+				req.opter_type = "1";
+				req.opter = "01";
+				req.opter_name = "张三";
+				req.inf_time = DateTime.Now;
+
+				//infno->sign_no
+				SignService signService = new SignService();
+				signService.BaseReq = req;
+				var signReq = new SignInReq()
+				{
+					ip = IPHelper.GetLocalIPAddress(),
+					mac = MacHelper.GetMacAddress(),
+					opter_no = "doku"
+				};
+
+				Console.WriteLine("...执行签到.....");
+				var infno = signService.SignIn(signReq);
+				Console.WriteLine("签到返回:");
+				var infno_resp = JsonHelper.Instance.Serialize(infno);
+				Console.WriteLine(infno_resp);
+				Console.WriteLine("...签到执行完毕....");
+				//user_info
+				BaseInformationService infoService = new BaseInformationService();
+				var userReq = new UserInfoReq()
+				{
+					psn_cert_type = "2",
+					mdtrt_cert_no = "510000202001010000",
+					psn_name = "李四",
+				
+					begntime = DateTime.Now,
+				};
+				req.sign_no = infno.sign_no;
+				infoService.BaseReq = req;
+				Console.WriteLine("...执行获取人员信息.....");
+				var user = infoService.GetUserInfo(userReq);
+				var user_resp = JsonHelper.Instance.Serialize(user);
+				Console.WriteLine(user_resp);
+				Console.WriteLine("...执行获取人员信息完毕.....");
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
+			Console.Read();
+		}
     }
 }
 

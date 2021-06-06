@@ -32,13 +32,14 @@ namespace HN_YBJ_SDK.Core
         public BaseReq BaseReq { get; set; }
 
         public Dictionary<string, string> Headers { get; set; }
-        
-        static HttpHelper _httpHelper = new HttpHelper();        
+
+        private HttpHelper _httpHelper;
                 
         public ServiceBase()
         {
             _api_timestamp = Math.Round(this.GetTime()).ToString();
             Headers = new Dictionary<string, string>();
+            _httpHelper = new HttpHelper(_api_url);
         }
 
         public string GenApiUrl(string api_name)
@@ -61,7 +62,7 @@ namespace HN_YBJ_SDK.Core
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("签到出错:"+ex.Message);
                 throw ex;
             }
 
@@ -82,7 +83,7 @@ namespace HN_YBJ_SDK.Core
             }
             catch (Exception ex)
             {
-
+                
                 throw ex;
             }
           
@@ -91,7 +92,8 @@ namespace HN_YBJ_SDK.Core
         protected string Post(string url, object param)
         {
             try
-            {            
+            {
+                BaseReq.input = JsonHelper.Instance.Serialize(param);
                 return _httpHelper.Post(BaseReq, Headers, url);
             }
             catch (Exception ex)
@@ -106,8 +108,9 @@ namespace HN_YBJ_SDK.Core
         {
             Headers.Add("_api_name", api_name);
             Headers.Add("_api_version", _api_version);
+            Headers.Add("_api_timestamp", _api_timestamp);
             Headers.Add("_api_access_key", _api_access_key);
-            Headers.Add("_api_access_key", SignCalc(api_name));
+            Headers.Add("_api_signature", SignCalc(api_name));
         }
 
         /// <summary>
@@ -120,7 +123,7 @@ namespace HN_YBJ_SDK.Core
             var param = new Dictionary<string, string> {
               {"_api_access_key", _api_access_key},
               {"_api_name", api_name},
-              {"_api_timestamp", Math.Round(this.GetTime()).ToString()},
+              {"_api_timestamp",_api_timestamp},
               {"_api_version", _api_version},
             };
             var sign = HashHelper.HmacSha1(ParseQueryString(param), Encoding.UTF8.GetBytes(_api_secreKey));

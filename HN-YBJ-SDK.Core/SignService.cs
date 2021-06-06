@@ -1,5 +1,4 @@
-﻿using FD.Util.Json;
-using NY_YBJ_SDK.Model;
+﻿using NY_YBJ_SDK.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,14 +44,5 @@ namespace HN_YBJ_SDK.Core
             base.PreAction(SIGN_OUT);
             return base.SignOut(url, req);
         }
-
-
-
-
-
-
-
-
-
     }
 }
