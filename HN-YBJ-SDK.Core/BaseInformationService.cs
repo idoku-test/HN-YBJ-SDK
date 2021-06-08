@@ -11,6 +11,7 @@ namespace HN_YBJ_SDK.Core
     {
         private const string GET_USER_INFO =  "1101";
 
+        private const string GET_ORG_INFO = "1201";
         public BaseInformationService()
         {
 
@@ -28,8 +29,20 @@ namespace HN_YBJ_SDK.Core
             base.PreAction(GET_USER_INFO);
             return Post(url, req);
         }
-        
 
-        
+        /// <summary>
+        /// 1201-获取机构信息
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public dynamic GetOrzInfo(UserInfoReq req)
+        {
+            var url = base.GenApiUrl(GET_ORG_INFO);
+            base.PreAction(GET_ORG_INFO);
+            return Post(url, req);
+        }
+
+
+
     }
 }

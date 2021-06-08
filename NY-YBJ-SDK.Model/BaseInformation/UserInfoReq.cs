@@ -25,4 +25,5 @@ namespace NY_YBJ_SDK.Model
         public string psn_name { get; set; }
 
     }         
+   
 }

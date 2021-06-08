@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NY_YBJ_SDK.Model
 {
-    public class BaseResp
+    public class BaseResp<T>
     {
         /// <summary>
         /// 交易状态码
@@ -36,7 +36,7 @@ namespace NY_YBJ_SDK.Model
         /// <summary>
         /// 交易输出
         /// </summary>
-        public string output { get; set; }
+        public T output { get; set; }
 
     }
 }

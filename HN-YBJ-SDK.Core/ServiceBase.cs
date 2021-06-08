@@ -108,7 +108,7 @@ namespace HN_YBJ_SDK.Core
         {
             Headers.Add("_api_name", api_name);
             Headers.Add("_api_version", _api_version);
-            Headers.Add("_api_timestamp", _api_timestamp);
+            Headers.Add("_api_timestamp",_api_timestamp);
             Headers.Add("_api_access_key", _api_access_key);
             Headers.Add("_api_signature", SignCalc(api_name));
         }
@@ -123,7 +123,7 @@ namespace HN_YBJ_SDK.Core
             var param = new Dictionary<string, string> {
               {"_api_access_key", _api_access_key},
               {"_api_name", api_name},
-              {"_api_timestamp",_api_timestamp},
+              {"_api_timestamp", Math.Round(this.GetTime()).ToString()},
               {"_api_version", _api_version},
             };
             var sign = HashHelper.HmacSha1(ParseQueryString(param), Encoding.UTF8.GetBytes(_api_secreKey));
