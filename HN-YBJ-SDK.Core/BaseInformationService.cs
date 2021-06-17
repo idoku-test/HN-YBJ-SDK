@@ -1,4 +1,5 @@
-﻿using NY_YBJ_SDK.Model;
+﻿using FD.Util.Json;
+using NY_YBJ_SDK.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,13 @@ namespace HN_YBJ_SDK.Core
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public dynamic GetUserInfo(UserInfoReq req)
+        public BaseResp<UserInfoResp> GetUserInfo(UserInfoReq req)
         {
             var url = base.GenApiUrl(GET_USER_INFO);
             base.PreAction(GET_USER_INFO);
-            return Post(url, req);
+            var resp = Post(url, req);
+            Console.WriteLine("人员信息原始返回:"+resp);
+            return JsonHelper.Instance.Deserialize<BaseResp<UserInfoResp>>(resp);
         }
 
         /// <summary>

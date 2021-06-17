@@ -37,7 +37,7 @@ namespace HN_YBJ_SDK.Core
                 
         public ServiceBase()
         {
-            _api_timestamp = Math.Round(this.GetTime()).ToString();
+            _api_timestamp = Math.Round(this.GetTime(DateTime.Now)).ToString();
             Headers = new Dictionary<string, string>();
             _httpHelper = new HttpHelper(_api_url);
         }
@@ -53,12 +53,14 @@ namespace HN_YBJ_SDK.Core
         /// <param name="url"></param>
         /// <param name="req"></param>
         /// <returns></returns>
-        protected SignInResp SignIn(string url, SignInReq req)
+        protected BaseResp<SignInResp> SignIn(string url, SignInReq req)
         {
             try
             {
-                var result = _httpHelper.Post(req, Headers, url);
-                return JsonHelper.Instance.Deserialize<SignInResp>(result);
+                BaseReq.input = req;
+                var result = _httpHelper.Post(BaseReq, Headers, url);
+                Console.WriteLine("签到返回:"+result);
+                return JsonHelper.Instance.Deserialize<BaseResp<SignInResp>>(result);
             }
             catch (Exception ex)
             {
@@ -78,7 +80,8 @@ namespace HN_YBJ_SDK.Core
         {
             try
             {
-                var result = _httpHelper.Post(req, Headers, url);
+                BaseReq.input = req;
+                var result = _httpHelper.Post(BaseReq, Headers, url);
                 return JsonHelper.Instance.Deserialize<SignOutResp>(result);
             }
             catch (Exception ex)
@@ -93,7 +96,7 @@ namespace HN_YBJ_SDK.Core
         {
             try
             {
-                BaseReq.input = JsonHelper.Instance.Serialize(param);
+                BaseReq.input = param;
                 return _httpHelper.Post(BaseReq, Headers, url);
             }
             catch (Exception ex)
@@ -123,17 +126,26 @@ namespace HN_YBJ_SDK.Core
             var param = new Dictionary<string, string> {
               {"_api_access_key", _api_access_key},
               {"_api_name", api_name},
-              {"_api_timestamp", Math.Round(this.GetTime()).ToString()},
+              {"_api_timestamp",_api_timestamp},
               {"_api_version", _api_version},
             };
             var sign = HashHelper.HmacSha1(ParseQueryString(param), Encoding.UTF8.GetBytes(_api_secreKey));
             return Convert.ToBase64String(sign.HexStringToHex());
         }
 
-        private decimal GetTime()
+        private long lLeft = 621355968000000000;
+        public double GetTime(DateTime dt)
         {
-            var time = (DateTime.Now.ToUniversalTime() - new DateTime(1970, 1, 1));
-            return (int)(time.TotalMilliseconds + 0.5);
+            DateTime d1 = new DateTime(1970, 1, 1);
+            DateTime d2 = dt.ToUniversalTime();
+            TimeSpan ts = new TimeSpan(d2.Ticks - d1.Ticks);
+            return ts.TotalMilliseconds;
+            //var time = (new DateTime(1994, 11, 10).ToUniversalTime() - new DateTime(1970, 1, 1));
+            //return (int)(time.TotalMilliseconds + 0.5);
+            //DateTime dt1 = dt.ToUniversalTime();
+            //decimal Sticks = (dt1.Ticks - lLeft) / 10000000;
+            //return Sticks;
+
         }
 
         /// <summary>

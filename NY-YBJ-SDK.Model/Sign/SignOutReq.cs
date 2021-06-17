@@ -17,7 +17,6 @@ namespace NY_YBJ_SDK.Model
     public class SignOutResp
     {
 
-        public DateTime sign_time { get; set; }
-        
+        public DateTime sign_time { get; set; }        
     }
 }

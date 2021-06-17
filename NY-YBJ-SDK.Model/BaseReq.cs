@@ -11,7 +11,7 @@ namespace NY_YBJ_SDK.Model
         /// <summary>
         /// 交易编号
         /// </summary>
-        public string infon { get; set; }
+        public string infno { get; set; }
 
         /// <summary>
         /// 发送方报文ID
@@ -99,6 +99,7 @@ namespace NY_YBJ_SDK.Model
         /// <summary>
         /// 交易输入
         /// </summary>
-        public string input { get; set; }
+        
+        public dynamic input { get; set; }
     }
 }

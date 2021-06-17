@@ -25,7 +25,7 @@ namespace HN_YBJ_SDK.Core
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public SignInResp SignIn(SignInReq req)
+        public BaseResp<SignInResp> SignIn(SignInReq req)
         {
             var url = base.GenApiUrl(SIGN_IN);
             base.PreAction(SIGN_IN);

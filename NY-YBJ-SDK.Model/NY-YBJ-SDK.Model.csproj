@@ -45,6 +45,7 @@
     <Compile Include="BaseInformation\UserInfoReq.cs" />
     <Compile Include="BaseReq.cs" />
     <Compile Include="BaseResp.cs" />
+    <Compile Include="Insure\DrugReq.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sign\SignOutReq.cs" />
     <Compile Include="Sign\SignInReq.cs" />
